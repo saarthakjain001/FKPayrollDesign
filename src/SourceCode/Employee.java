@@ -7,6 +7,7 @@ package SourceCode;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.*;
+import java.util.Scanner;
 /**
  *
  * @author stark001
@@ -17,7 +18,8 @@ public class Employee {
     protected int commissionRate=0,id,charges=0,totalRecievedAmount=0;
     protected int hourlyRate=0,salary=0;
     protected int mob;
-
+    final static String pswdString = "xxx";
+    
     public Employee(int id,String name,int mob,String category,String modeOfPayment,String address){
     this.id=id;
     this.name=name;
@@ -83,7 +85,51 @@ public class Employee {
              System.out.println(e);
          }
      }
-    
+    protected static void DeleteEmployee(){
+        String name;int mob;
+        System.out.println("Enter Employee name");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Name");
+        name = sc.nextLine();
+        System.out.println("Mobile number");
+        mob = sc.nextInt();
+        Conn.setConn();
+        try{
+            String query ="select * from Employee where name = ? and mobileNumber = ?";
+            PreparedStatement ps = null;
+            ps=Conn.con.prepareStatement(query);
+            ps.setString(1, name);
+            ps.setInt(2,mob);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()==false)
+            {
+                System.out.println("No record found");
+            }
+            else
+            {
+                System.out.println("The name is "+ rs.getString("name") + " and mob number is " + rs.getInt("mobileNumber"));
+                ps = null;
+                query = "Delete from Employee where name = ? and mobileNumber = ?";
+                ps=Conn.con.prepareStatement(query);
+                ps.setString(1, name);
+                ps.setInt(2,mob);
+                try{
+                    ps.execute();
+                    System.err.println("Record Deleted");
+                }
+                catch(java.sql.SQLException e)
+                {
+                    //System.err.println(e);
+                    System.err.println("Could not delete record");
+                }
+            }
+            
+            
+        }
+        catch(java.sql.SQLException e){
+            System.out.println(e);
+        }
+    }
 }
 
 
