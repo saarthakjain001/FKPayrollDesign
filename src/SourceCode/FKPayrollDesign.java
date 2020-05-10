@@ -20,6 +20,14 @@ public class FKPayrollDesign {
     static int dayValue = d.getDay(); 
     
     
+    private static void runPayRoll(){
+        
+    }
+    
+    private static void handleMonthlyPayments(){
+        
+    }
+    
     private static void handleSalariedEmployees(){      
         Conn.setConn();
         try{
@@ -84,6 +92,7 @@ public class FKPayrollDesign {
     System.out.println("3.Post a Time Card");
     System.out.println("4.Post a Sales Receipt");
     System.out.println("5.Change Hourly Rate");
+    System.out.println("6.PayRoll for Today");
     Scanner scan = new Scanner(System.in);
     int value = scan.nextInt();  // Read user input
 

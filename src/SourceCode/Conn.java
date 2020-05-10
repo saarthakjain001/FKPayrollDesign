@@ -53,24 +53,24 @@ public class Conn {
         }
     }
     
-    public static ResultSet executeQuery(String query){
-         
-        ResultSet rs = null;
-        Statement statement;
-         try
-         {
-             statement= con.createStatement();
-             rs = statement.executeQuery(query); 
-         } 
-         catch(SQLException e)
-         {
-             System.out.println("Statement cannot be created");
-         }
-         finally{
-             return rs;
-         }
+//    public static ResultSet executeQuery(String query){
+//         
+//        ResultSet rs = null;
+//        Statement statement;
+//         try
+//         {
+//             statement= con.createStatement();
+//             rs = statement.executeQuery(query); 
+//         } 
+//         catch(SQLException e)
+//         {
+//             System.out.println("Statement cannot be created");
+//         }
+//         finally{
+//             return rs;
+//         }
     
-    }
+//}
     
    
 }
