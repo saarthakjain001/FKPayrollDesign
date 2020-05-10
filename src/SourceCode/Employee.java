@@ -4,25 +4,29 @@
  * and open the template in the editor.
  */
 package SourceCode;
-import java.util.Date;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.sql.*;
 /**
  *
  * @author stark001
  */
 public class Employee {
     protected String name,category,modeOfPayment,address,bankDetails;
-    protected LocalDate lastPaymentDate; 
-    protected int commissionRate,id,charges=0,totalRecievedAmount=0;
+    protected Date lastPaymentDate; 
+    protected int commissionRate=0,id,charges=0,totalRecievedAmount=0;
     protected int hourlyRate=0,salary=0;
+    protected int mob;
 
-    public Employee(int id,String name,String category,String modeofPayment,String address){
+    public Employee(int id,String name,int mob,String category,String modeOfPayment,String address){
     this.id=id;
     this.name=name;
+    this.mob=mob;
     this.category=category;
     this.modeOfPayment=modeOfPayment;
     this.address = address;
-    this.lastPaymentDate = java.time.LocalDate.now();
+    long d = System.currentTimeMillis();
+    this.lastPaymentDate = new Date(d);
     }
       
     protected void setBankDetails(String bankDetails){
@@ -49,14 +53,36 @@ public class Employee {
         }
     }
 
-//     protected void AddEmployee(){
-//         setConn();
-//         String query = "INSERT INTO Employee " +"VALUES (100, 'Zara', 'Ali', 18)";
-//         Resultset result = executQuery();
-//         PreparedStatement stmt = con.prepareStatement("SELECT * FROM `prices` WHERE `poster` = ?");
-// stmt.setString(1, poster);
-// ResultSet rs = stmt.executeQuery();
-//     }
+     protected void AddEmployee(){
+         Conn.setConn();
+         try{
+         String query = "Insert into Employee values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+         PreparedStatement ps =null;
+         ps=Conn.con.prepareStatement(query);
+         ps.setInt(1,id);
+         ps.setString(2,name);
+         ps.setInt(3,mob);
+         ps.setString(4,category);
+         ps.setString(5,address);
+         ps.setString(6,bankDetails);
+         ps.setInt(7,commissionRate);
+         ps.setString(8,modeOfPayment);
+         ps.setDate(9, lastPaymentDate);
+         ps.setInt(10,charges);
+         ps.setInt(11,salary);
+         ps.setInt(12,hourlyRate);
+         ps.setInt(13,totalRecievedAmount);
+         ps.execute();
+         System.out.println("Employee Registered");
+         Conn.closeConn();
+         }
+         catch(java.sql.SQLException e){
+             System.out.println(e);
+         }
+         catch(Exception e){
+             System.out.println(e);
+         }
+     }
     
 }
 

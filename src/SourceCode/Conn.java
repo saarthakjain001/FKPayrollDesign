@@ -18,11 +18,19 @@ import java.sql.*;
 
 
 public class Conn {
-    static Connection con;
+    protected static Connection con;
     
 
     static Conn instance = null;
 
+
+
+    public static Conn getInstance(){
+        if(instance==null){
+            instance=new Conn();
+        }
+        return instance;
+    }
 
     public static void setConn() {
         try {
@@ -64,8 +72,5 @@ public class Conn {
     
     }
     
-    public static void main(String[] args) {
- setConn();
-
- }
+   
 }

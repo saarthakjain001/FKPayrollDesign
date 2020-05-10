@@ -11,8 +11,8 @@ package SourceCode;
  */
 public class SalariedEmployee extends Employee{
   
-  public SalariedEmployee(int id,String name,String category,String modeofPayment,String address,int salary){
-      super(id, name, category, modeofPayment, address);
+  public SalariedEmployee(int id,String name,int mob,String category,String modeofPayment,String address,int salary){
+      super(id, name,mob, category, modeofPayment, address);
     this.salary = salary;
   }
 }

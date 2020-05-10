@@ -11,8 +11,8 @@ package SourceCode;
  */
 public class HourlyEmployee extends Employee{
    
-   public HourlyEmployee(int id,String name,String category,String modeofPayment,String address,int hourlyRate){
-    super(id, name, category, modeofPayment, address);
+   public HourlyEmployee(int id,String name,int mob,String category,String modeofPayment,String address,int hourlyRate){
+    super(id, name,mob, category, modeofPayment, address);
     this.hourlyRate = hourlyRate;
    }
 
