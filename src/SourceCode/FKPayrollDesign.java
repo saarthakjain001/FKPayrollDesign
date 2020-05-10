@@ -16,27 +16,31 @@ import java.util.Date;
  * @author stark001
  */
 public class FKPayrollDesign {
-    private static void handleSalariedEmployees(){
-        Date d=new Date();  
-        int dayValue = d.getDay();        
+    static Date d=new Date();  
+    static int dayValue = d.getDay(); 
+    
+    
+    private static void handleSalariedEmployees(){      
         Conn.setConn();
         try{
             String query;
             if (dayValue!=5){
-            query = "update Employee set CardFlag =? where Category=?";
+            query = "update Employee set CardFlag =? where Category=? and CardFlag=?";
             PreparedStatement ps = null;
             ps=Conn.con.prepareStatement(query);
             ps.setInt(1, 0);
             ps.setString(2,"Salaried");
+            ps.setInt(3,1);
             ps.executeUpdate();
             }
             else{
-            query ="update Employee set AmountReceived=AmountReceived+PendingPayment,CardFlag =?,PendingPayment=? where Category=?";
+            query ="update Employee set AmountReceived=AmountReceived+PendingPayment,CardFlag =?,PendingPayment=? where Category=? and CardFlag=?";
             PreparedStatement ps = null;
             ps=Conn.con.prepareStatement(query);
             ps.setInt(1, 0);
             ps.setInt(2,0);
             ps.setString(3,"Salaried");
+            ps.setInt(4,1);
             ps.executeUpdate();  
             }
         }
@@ -44,7 +48,34 @@ public class FKPayrollDesign {
             System.out.println(e);
         }
    }
-    
+    private static void handleHourlyEmployees(){        
+        Conn.setConn();
+        try{
+            String query;
+            if (dayValue!=5){
+            query = "update Employee set CardFlag =? where Category=? and CardFlag=?";
+            PreparedStatement ps = null;
+            ps=Conn.con.prepareStatement(query);
+            ps.setInt(1, 0);
+            ps.setString(2,"Hourly");
+            ps.setInt(3,1);
+            ps.executeUpdate();
+            }
+            else{
+            query ="update Employee set AmountReceived=AmountReceived+PendingPayment,CardFlag =?,PendingPayment=? where Category=? and CardFlag=?";
+            PreparedStatement ps = null;
+            ps=Conn.con.prepareStatement(query);
+            ps.setInt(1, 0);
+            ps.setInt(2,0);
+            ps.setString(3,"Hourly");
+            ps.setInt(4,1);
+            ps.executeUpdate();  
+            }
+        }
+        catch(java.sql.SQLException e){
+            System.out.println(e);
+        }
+   } 
     
     public static void main(String []args){
     System.out.println("Select the option");
@@ -119,6 +150,7 @@ public class FKPayrollDesign {
     else if(value==6)
     {
         handleSalariedEmployees();
+        handleHourlyEmployees();
     }
   }
 }
