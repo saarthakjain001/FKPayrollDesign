@@ -13,14 +13,14 @@ import java.util.Scanner;
  *
  * @author stark001
  */
-public class HourlyEmployee extends Employee{
+public class HourlyEmployee extends Employee {
    
    public HourlyEmployee(int id,String name,int mob,String category,String modeofPayment,String address,int hourlyRate){
     super(id, name,mob, category, modeofPayment, address);
     this.hourlyRate = hourlyRate;
    }
    
-   public static double CalculatePay(int hours){
+   public static double CalculateBonusPay(int hours){
        Double hr = (double)hours;
        if(hours>8)
            return (1.5*hr);
@@ -62,7 +62,7 @@ public class HourlyEmployee extends Employee{
                 ps = null;
                 int hourlyRate=rs.getInt("HourlyRate");
                 int pendingPayment=rs.getInt("PendingPayment");
-                int increment =(int)(CalculatePay(time)*hourlyRate);
+                int increment =(int)(CalculateBonusPay(time)*hourlyRate);
                 int updatedPayment = pendingPayment+increment;
                 query = "update Employee set PendingPayment=?,CardFlag =? where name=? and mobileNumber=?";
                 ps=Conn.con.prepareStatement(query);

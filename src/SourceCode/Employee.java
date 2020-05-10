@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  *
  * @author stark001
- */
+ */          
 public class Employee {
     protected String name,category,modeOfPayment,address,bankDetails;
     protected Date lastPaymentDate; 

@@ -19,6 +19,7 @@ public class FKPayrollDesign {
     System.out.println("1.Add New Employee");
     System.out.println("2.Delete an Employee");
     System.out.println("3.Post a Time Card");
+    System.out.println("4.Post a Sales Receipt");
     Scanner scan = new Scanner(System.in);
     int value = scan.nextInt();  // Read user input
 
@@ -73,6 +74,10 @@ public class FKPayrollDesign {
     else if (value==3)
     {
         HourlyEmployee.PostTimeCard();
+    }
+    else if(value==4)
+    {
+        SalariedEmployee.PostSalesReceipt();
     }
   }
 }
