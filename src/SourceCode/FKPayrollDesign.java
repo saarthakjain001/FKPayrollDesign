@@ -5,6 +5,9 @@
  */
 package SourceCode;
 
+import static SourceCode.SalariedEmployee.CalculateBonusPay;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Scanner;
 /**
@@ -12,6 +15,21 @@ import java.util.Scanner;
  * @author stark001
  */
 public class FKPayrollDesign {
+    private static void handleSalariedEmployees(){
+        Conn.setConn();
+        try{
+            String query ="update Employee set AmountReceived=AmountReceived+PendingPayment,CardFlag =?,PendingPayment=? where Category=?";
+            PreparedStatement ps = null;
+            ps=Conn.con.prepareStatement(query);
+            ps.setInt(1, 0);
+            ps.setInt(2,0);
+            ps.setString(3,"Salaried");
+            ps.executeUpdate();    
+        }
+        catch(java.sql.SQLException e){
+            System.out.println(e);
+        }
+   }
     
     
     public static void main(String []args){
@@ -83,6 +101,10 @@ public class FKPayrollDesign {
     else if(value==5)
     {
         HourlyEmployee.ChangeHourlyRate();
+    }
+    else if(value==6)
+    {
+        handleSalariedEmployees();
     }
   }
 }
