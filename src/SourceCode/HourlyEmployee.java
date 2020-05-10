@@ -87,5 +87,61 @@ public class HourlyEmployee extends Employee {
             System.out.println(e);
         }
    }
+   
+   
+   protected static void ChangeHourlyRate()
+    {
+        String name;int mob;
+       int rate;
+        //System.out.println("Enter Employee name");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Name");
+        name = sc.nextLine();
+        System.out.println("Mobile number");
+        mob = sc.nextInt();
+        System.out.println("New Rate");
+        rate = sc.nextInt();
+        Conn.setConn();
+        try{
+            String query ="select * from Employee where name = ? and mobileNumber = ? and Category = ?";
+            PreparedStatement ps = null;
+            ps=Conn.con.prepareStatement(query);
+            ps.setString(1, name);
+            ps.setInt(2,mob);
+            ps.setString(3,"Hourly");
+            ResultSet rs = ps.executeQuery();
+            //String category = rs.getString("Category");
+            if(rs.next()==false)
+            {
+                //if(category.equals("Salaried"))
+                    System.out.println("Not a registered Employee");
+               
+            }
+            else
+            {
+                //System.out.println("The name is "+ rs.getString("name") + " and mob number is " + rs.getInt("mobileNumber"));
+                ps = null;
+                query = "update Employee set HourlyRate=? where name=? and mobileNumber=?";
+                ps=Conn.con.prepareStatement(query);
+                ps.setInt(1, rate);
+                ps.setString(2,name);
+                ps.setInt(3,mob);
+                try{
+                    ps.execute();
+                    System.err.println("HourlyRate updated");
+                }
+                catch(java.sql.SQLException e)
+                {
+                    //System.err.println(e);
+                    System.err.println("Hourly Rate Could not be updated ");
+                }
+            }
+            
+            
+        }
+        catch(java.sql.SQLException e){
+            System.out.println(e);
+        }
+    }
 
 }
