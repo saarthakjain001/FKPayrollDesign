@@ -41,16 +41,20 @@ public class HourlyEmployee extends Employee{
         time = sc.nextInt();
         Conn.setConn();
         try{
-            String query ="select * from Employee where name = ? and mobileNumber = ? and CardFlag=?";
+            String query ="select * from Employee where name = ? and mobileNumber = ? and CardFlag=? and Category = ?";
             PreparedStatement ps = null;
             ps=Conn.con.prepareStatement(query);
             ps.setString(1, name);
             ps.setInt(2,mob);
             ps.setInt(3,0);
+            ps.setString(4,"Hourly");
             ResultSet rs = ps.executeQuery();
+            //String category = rs.getString("Category");
             if(rs.next()==false)
             {
-                System.out.println("Already submitted time card for today");
+                //if(category.equals("Salaried"))
+                    System.out.println("You are a salaried Employee  OR Already submitted time card for today");
+               
             }
             else
             {
