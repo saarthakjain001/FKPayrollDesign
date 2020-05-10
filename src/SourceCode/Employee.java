@@ -15,8 +15,8 @@ import java.util.Scanner;
 public class Employee {
     protected String name,category,modeOfPayment,address,bankDetails;
     protected Date lastPaymentDate; 
-    protected int commissionRate=0,id,charges=0,totalRecievedAmount=0;
-    protected int hourlyRate=0,salary=0;
+    protected int commissionRate=0,id,charges=0,totalRecievedAmount=0,pendingPayment=0;
+    protected int hourlyRate=0,salary=0,postFlag=0;
     protected int mob;
     final static String pswdString = "xxx";
     
@@ -58,7 +58,7 @@ public class Employee {
      protected void AddEmployee(){
          Conn.setConn();
          try{
-         String query = "Insert into Employee values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+         String query = "Insert into Employee values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
          PreparedStatement ps =null;
          ps=Conn.con.prepareStatement(query);
          ps.setInt(1,id);
@@ -73,7 +73,9 @@ public class Employee {
          ps.setInt(10,charges);
          ps.setInt(11,salary);
          ps.setInt(12,hourlyRate);
-         ps.setInt(13,totalRecievedAmount);
+         ps.setInt(13,postFlag);
+         ps.setInt(14,pendingPayment);
+         ps.setInt(15, totalRecievedAmount);
          ps.execute();
          System.out.println("Employee Registered");
          Conn.closeConn();
@@ -87,7 +89,7 @@ public class Employee {
      }
     protected static void DeleteEmployee(){
         String name;int mob;
-        System.out.println("Enter Employee name");
+        //System.out.println("Enter Employee name");
         Scanner sc = new Scanner(System.in);
         System.out.println("Name");
         name = sc.nextLine();

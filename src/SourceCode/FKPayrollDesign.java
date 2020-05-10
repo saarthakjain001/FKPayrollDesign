@@ -18,6 +18,7 @@ public class FKPayrollDesign {
     System.out.println("Select the option");
     System.out.println("1.Add New Employee");
     System.out.println("2.Delete an Employee");
+    System.out.println("3.Post a Time Card");
     Scanner scan = new Scanner(System.in);
     int value = scan.nextInt();  // Read user input
 
@@ -61,13 +62,17 @@ public class FKPayrollDesign {
             emp = new HourlyEmployee(id,name,mobNumber,category,modeOfPayment,address,hourlyRate);
         }
         emp.setBankDetails(bankDetails);
-        System.out.println("Commission Rate");
-        commissionRate = scan.nextInt();
+//        System.out.println("Commission Rate");
+//        commissionRate = scan.nextInt();
         emp.setCommissionRate(commissionRate);
         emp.AddEmployee();
         }
     else if(value==2){
         Employee.DeleteEmployee();
+    }
+    else if (value==3)
+    {
+        HourlyEmployee.PostTimeCard();
     }
   }
 }
