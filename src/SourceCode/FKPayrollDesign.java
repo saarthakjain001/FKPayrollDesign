@@ -10,21 +10,35 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.Date;
 /**
  *
  * @author stark001
  */
 public class FKPayrollDesign {
     private static void handleSalariedEmployees(){
+        Date d=new Date();  
+        int dayValue = d.getDay();        
         Conn.setConn();
         try{
-            String query ="update Employee set AmountReceived=AmountReceived+PendingPayment,CardFlag =?,PendingPayment=? where Category=?";
+            String query;
+            if (dayValue!=5){
+            query = "update Employee set CardFlag =? where Category=?";
+            PreparedStatement ps = null;
+            ps=Conn.con.prepareStatement(query);
+            ps.setInt(1, 0);
+            ps.setString(2,"Salaried");
+            ps.executeUpdate();
+            }
+            else{
+            query ="update Employee set AmountReceived=AmountReceived+PendingPayment,CardFlag =?,PendingPayment=? where Category=?";
             PreparedStatement ps = null;
             ps=Conn.con.prepareStatement(query);
             ps.setInt(1, 0);
             ps.setInt(2,0);
             ps.setString(3,"Salaried");
-            ps.executeUpdate();    
+            ps.executeUpdate();  
+            }
         }
         catch(java.sql.SQLException e){
             System.out.println(e);
